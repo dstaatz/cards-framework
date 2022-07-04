@@ -1,4 +1,4 @@
-use super::{Player, PlayerInterface, Action, History, Table};
+use super::{Action, History, Player, PlayerInterface, Table};
 use crate::cards::{Deck, DeckError};
 
 pub struct Game {
@@ -9,7 +9,6 @@ pub struct Game {
 }
 
 impl Game {
-
     pub fn new(small_blind_amount: u32) -> Game {
         Game {
             table: Table::new(),
@@ -47,7 +46,6 @@ impl Game {
             }
 
             // --- Bets --- //
-
         }
     }
 
@@ -90,13 +88,19 @@ impl Game {
                 }
 
                 // Player does action
-                if let Action::Raise(raise_amount) = self.table.players[player_index].player_action(round_betting_amount, &self.history) {
+                if let Action::Raise(raise_amount) = self.table.players[player_index]
+                    .player_action(round_betting_amount, &self.history)
+                {
                     round_betting_amount += raise_amount;
                     last_raise_player = Some(player_index);
                 }
 
                 // Add player action to history
-                self.history.add_player_history(&self.table.players[player_index], player_index, false);
+                self.history.add_player_history(
+                    &self.table.players[player_index],
+                    player_index,
+                    false,
+                );
             }
         }
         return self.is_there_one_person_remaining();
@@ -119,8 +123,10 @@ impl Game {
     fn is_round_ended(&self) -> bool {
         for player in &self.table.players {
             match player.get_action() {
-                Some(Action::Raise(_)) | None => { return false; },
-                _ => {},
+                Some(Action::Raise(_)) | None => {
+                    return false;
+                }
+                _ => {}
             }
         }
         return true;

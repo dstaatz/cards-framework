@@ -1,11 +1,19 @@
-use super::{Action, Player, PlayerError, History};
+use super::{Action, History, Player, PlayerError};
 use crate::cards::Card;
 
 pub struct BasicPlayer {}
 
 impl Player for BasicPlayer {
     /// Makes a random valid bet
-    fn player_action(player: Box<dyn Player>, hand: &Vec<Card>, chips: u32, gamled_chips: u32, call_amount: u32, game_history: &History, error: &Option<PlayerError>) -> Action {
+    fn player_action(
+        player: Box<dyn Player>,
+        hand: &Vec<Card>,
+        chips: u32,
+        gamled_chips: u32,
+        call_amount: u32,
+        game_history: &History,
+        error: &Option<PlayerError>,
+    ) -> Action {
         // Call, can't check
         if call_amount == 0 {
             match rand::random::<u8>() % 5 {

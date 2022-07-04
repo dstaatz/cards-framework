@@ -1,4 +1,4 @@
-use super::{Action, Player, PlayerError, History, BasicPlayer};
+use super::{Action, BasicPlayer, History, Player, PlayerError};
 use crate::cards::Card;
 use std::cmp::min;
 
@@ -57,7 +57,15 @@ impl PlayerInterface {
         let call_amount = bet_amount - self.gambled_chips;
         loop {
             //match self.player.player_action(self.player, &self.hand, self.chips, self.gambled_chips, call_amount, &history, &err) {
-            let action = Player::player_action(self.player, &self.hand, self.chips, self.gambled_chips, call_amount, &history, &err);
+            let action = Player::player_action(
+                self.player,
+                &self.hand,
+                self.chips,
+                self.gambled_chips,
+                call_amount,
+                &history,
+                &err,
+            );
             // TODO, make sure actions are valid
             return action;
         }

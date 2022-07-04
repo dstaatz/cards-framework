@@ -1,7 +1,7 @@
-use super::{Action, PlayerError, History};
+use super::{Action, History, PlayerError};
 use crate::cards::Card;
 
-pub trait Player: {
+pub trait Player {
     /// The action the player chooses to take
     ///
     /// * `call_amount`: The amount of chips required to stay in the round without going all in
@@ -11,7 +11,15 @@ pub trait Player: {
     ///     community cards
     /// * `error`: If you tried to make an invalid move, this will be populated with the error
     // TODO: pass cards into this as immutable
-    fn player_action(player: Box<dyn Player>, hand: &Vec<Card>, chips: u32, gamled_chips: u32, call_amount: u32, game_history: &History, error: &Option<PlayerError>) -> Action
-        where
-            Self: Sized;
+    fn player_action(
+        player: Box<dyn Player>,
+        hand: &Vec<Card>,
+        chips: u32,
+        gamled_chips: u32,
+        call_amount: u32,
+        game_history: &History,
+        error: &Option<PlayerError>,
+    ) -> Action
+    where
+        Self: Sized;
 }

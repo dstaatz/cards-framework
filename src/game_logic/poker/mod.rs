@@ -1,4 +1,3 @@
-
 pub mod player;
 pub use player::Player;
 
@@ -21,4 +20,4 @@ pub mod game;
 pub use game::Game;
 
 pub mod history;
-pub use history::{History, TurnHistory, RoundHistory, PlayerHistory};
+pub use history::{History, PlayerHistory, RoundHistory, TurnHistory};
